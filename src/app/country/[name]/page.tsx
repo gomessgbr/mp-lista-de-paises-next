@@ -31,10 +31,11 @@ async function getCountryBordersByName(name: string) {
 }
 
 export default async function CountryPage({
-  params: { name },
+  params,
 }: {
-  params: { name: string };
+  params: Promise<{ name: string }>;
 }) {
+  const name = (await params).name;
   const country = await getCountryByName(decodeURI(name));
   const borderCountries = await getCountryBordersByName(decodeURI(name));
 
