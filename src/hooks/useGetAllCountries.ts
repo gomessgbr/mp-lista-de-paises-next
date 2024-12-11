@@ -1,15 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import { API } from "../services/apiConfig/api";
-import { IContries } from "@/dto/countries";
+import { ICountries } from "@/dto/countries";
 
 export const useGetAllContries = () => {
-  const [contries, setContries] = useState<IContries[]>([]);
+  const [countries, setCountries] = useState<ICountries[]>([]);
 
   const fetchAllCountries = async () => {
-    const response = await API.get<IContries[]>("all");
+    const response = await API.get<ICountries[]>("all");
     console.log("response", response);
-    // setContries(response.data);
+    setCountries(response.data);
   };
 
   useEffect(() => {
@@ -17,6 +17,6 @@ export const useGetAllContries = () => {
   }, []);
 
   return {
-    contries,
+    countries,
   };
 };
