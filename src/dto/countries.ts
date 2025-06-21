@@ -158,4 +158,5 @@ export type Country = {
 
   borders?: string[];
   cca3: string;
+  altSpellings: string[];
 };

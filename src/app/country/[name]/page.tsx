@@ -1,34 +1,35 @@
-import CountriesCard from "@/app/_components/CoutriesCard";
+// import CountriesCard from "@/app/_components/CoutriesCard";
 import { Country } from "@/dto/countries";
 import Image from "next/image";
 import Link from "next/link";
 import chevronIcon from "../../_assets/arrow-back.svg";
 
 async function getCountryByName(name: string): Promise<Country> {
-  const response = await fetch("https://restcountries.com/v3.1/all");
+  const response = await fetch(`https://restcountries.com/v3.1/name/${name}`);
   const countries: Country[] = await response.json();
-
   return countries.find((country: Country) => country.name.common === name)!;
 }
 
-async function getCountryBordersByName(name: string) {
-  const response = await fetch("https://restcountries.com/v3.1/all");
-  const countries: Country[] = await response.json();
+// async function getCountryBordersByName(name: string) {
+//   const response = await fetch(
+//     "https://restcountries.com/v3.1/name/${name}?fields=borders",
+//   );
+//   const countries: Country[] = await response.json();
 
-  const country = countries.find(
-    (country: Country) => country.name.common === name,
-  )!;
+//   const country = countries.find(
+//     (country: Country) => country.name.common === name,
+//   )!;
 
-  return country.borders?.map((border) => {
-    const borderCountry = countries.find((country) => country.cca3 === border)!;
-    return {
-      name: borderCountry.name.common,
-      ptName: borderCountry.translations.por.common,
-      flag: borderCountry.flags.svg,
-      flagAlt: borderCountry.flags.alt,
-    };
-  });
-}
+//   return country.borders?.map((border) => {
+//     const borderCountry = countries.find((country) => country.cca3 === border)!;
+//     return {
+//       name: borderCountry.name.common,
+//       ptName: borderCountry.translations.por.common,
+//       flag: borderCountry.flags.svg,
+//       flagAlt: borderCountry.flags.alt,
+//     };
+//   });
+// }
 
 export default async function CountryPage({
   params,
@@ -37,7 +38,7 @@ export default async function CountryPage({
 }) {
   const name = (await params).name;
   const country = await getCountryByName(decodeURI(name));
-  const borderCountries = await getCountryBordersByName(decodeURI(name));
+  // const borderCountries = await getCountryBordersByName(decodeURI(name));
 
   const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
@@ -89,13 +90,13 @@ export default async function CountryPage({
         <div className="relative  h-48 my-2 md:h-auto w-96 shadow-md md:order-last order-first">
           <Image
             src={country.flags.svg}
-            alt={country.flags.alt}
+            alt="imagem da bandeira do país"
             fill
             className="object-cover"
           />
         </div>
       </article>
-      <section>
+      {/* <section>
         <h3 className="mt-12 text-2xl font-semibold text-gray-800">
           Países que fazem fronteira
         </h3>
@@ -104,7 +105,7 @@ export default async function CountryPage({
             <CountriesCard key={border.name} {...border} />
           ))}
         </div>
-      </section>
+      </section> */}
     </section>
   );
 }
