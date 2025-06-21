@@ -7,8 +7,10 @@ export const useGetAllContries = () => {
   const [countries, setCountries] = useState<ICountries[]>([]);
 
   const fetchAllCountries = async () => {
-    const response = await API.get<ICountries[]>("all");
-    console.log("response", response);
+    const response = await API.get<ICountries[]>(
+      "all?fields=name,flags,translations,altSpellings",
+    );
+    // console.log("response", response);
     setCountries(response.data);
   };
 

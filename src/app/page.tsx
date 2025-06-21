@@ -9,14 +9,14 @@ export default function Home() {
 
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-full container gap-2 mt-16">
-      {countries.map((countrie) => {
+      {countries.map((country) => {
         return (
           <CountriesCard
-            key={countrie.name.common}
-            name={countrie.name.common}
-            ptName={countrie.translations.por.official}
-            flag={countrie.flags.svg}
-            flagAlt={countrie.flags.alt || countrie.altSpellings[0]}
+            key={country.name.common}
+            name={country.name.common}
+            ptName={country.translations.por.official}
+            flag={country.flags.svg}
+            flagAlt={country.flags.alt || country.altSpellings[0]}
           />
         );
       })}
